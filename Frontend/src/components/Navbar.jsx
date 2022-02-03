@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import Search from './Search';
 const Navbar = ({ user }) => {
   const logout = () => {
     localStorage.removeItem("user");
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open("http://localhost:5000/api/logout", "_self");
   };
 const handleClick=()=>{
-  window.location.href = "http://localhost:5000/auth/google";
+  window.location.href = "http://localhost:5000/google/login";
 };
 
   return (
@@ -20,6 +21,7 @@ const handleClick=()=>{
           Gator Marketplace
         </Link>
       </span>
+      <Search/>
       {user ? (
         <ul className="list">
           <li className="listItem">
