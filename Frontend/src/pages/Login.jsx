@@ -3,7 +3,7 @@ import Google from "../img/google.png";
 
 const Login = () => {
   const google = () => {
-    window.location("http://localhost:5000/auth/google", "_self");
+    window.location("http://localhost:5000/google/login", "_self");
   };
 
 
