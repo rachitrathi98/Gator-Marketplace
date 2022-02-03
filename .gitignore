@@ -7,7 +7,6 @@ Backend/.env
 Frontend/node_modules
 # testing
 /coverage
-Frontend/node_modules
 
 # production
 /build
