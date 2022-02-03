@@ -1,9 +1,10 @@
 package main
 
 import (
+	"GatorMarketPlace/database"
 	"GatorMarketPlace/routes"
-	"fmt"
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -22,8 +23,9 @@ func main() {
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 	}))
+	// app.Use(cors.New())
 
+	database.Connect()
 	routes.Setup(app)
-	fmt.Print("dsdsd")
-	app.Listen(":8000")
+	app.Listen(":" + os.Getenv("PORT"))
 }

@@ -12,5 +12,6 @@ func Setup(app *fiber.App) {
 	app.Get("/google/callback", controllers.GoogleCallback())
 	app.Get("/api/logout", controllers.Logout)
 	app.Get("/api/user", controllers.User)
+	app.Get("/api/login-success", controllers.LoginSuccess)
 
 }

@@ -2,6 +2,8 @@
 package controllers
 
 import (
+	"GatorMarketPlace/database"
+	"GatorMarketPlace/models"
 	"GatorMarketPlace/utils"
 	"context"
 	"encoding/json"
@@ -12,6 +14,8 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
@@ -32,13 +36,13 @@ type googleAuthResponse struct {
 }
 
 type customClaims struct {
-	Username string `json:"username"`
+	Email string `json:"email"`
 	jwt.StandardClaims
 }
 
 func oAuthGoogleConfig() *oauth2.Config {
 	return &oauth2.Config{
-		RedirectURL:  "http://localhost:8000/google/callback",
+		RedirectURL:  "http://localhost:5000/google/callback",
 		ClientID:     os.Getenv("GOOGLE_OAUTH_CLIENT_ID"),
 		ClientSecret: os.Getenv("GOOGLE_OAUTH_CLIENT_SECRET"),
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"},
@@ -86,6 +90,24 @@ func GoogleCallback() fiber.Handler {
 			return c.JSON("Error")
 		}
 
+		user := models.User{
+			Id:    primitive.NewObjectID(),
+			Name:  googleResponse.Name,
+			Email: googleResponse.Email,
+		}
+		userCollection := database.MI.Db.Collection("users")
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+		findResult := userCollection.FindOne(ctx, bson.M{
+			"email": user.Email,
+		})
+
+		if err := findResult.Err(); err != nil {
+			_, err := userCollection.InsertOne(ctx, user)
+			if err != nil {
+				return err
+			}
+		}
+
 		tkn, _ := GenerateToken(&googleResponse)
 		cookie := fiber.Cookie{
 			Name:     "jwt",
@@ -93,17 +115,16 @@ func GoogleCallback() fiber.Handler {
 			Expires:  time.Now().Add(time.Hour * 24),
 			HTTPOnly: true,
 		}
-		fmt.Print(cookie.Value)
 		c.Cookie(&cookie)
 
-		return c.Redirect("http://localhost:8000/api/user", http.StatusTemporaryRedirect)
+		return c.Redirect("http://localhost:3000/home", http.StatusTemporaryRedirect)
 	}
 }
 
 func GenerateToken(googleResponse *googleAuthResponse) (string, error) {
 
 	claims := customClaims{
-		Username: googleResponse.Name,
+		Email: googleResponse.Email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
 			Issuer:    googleResponse.ID,
@@ -146,7 +167,21 @@ func User(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON("Error")
 	}
-	return c.SendString(claims.Username)
+	// return c.JSON(&fiber.Map{
+	// 	"user": claims.Email,
+	// })
+	var user models.User
+	userCollection := database.MI.Db.Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	e := userCollection.FindOne(ctx, bson.M{"email": claims.Email}).Decode(&user)
+
+	if e != nil {
+		return c.SendString("error")
+	}
+
+	return c.JSON(&fiber.Map{
+		"user": user,
+	})
 }
 
 func Logout(c *fiber.Ctx) error {
@@ -159,7 +194,26 @@ func Logout(c *fiber.Ctx) error {
 
 	c.Cookie(&cookie)
 
-	return c.JSON(fiber.Map{
-		"message": "success",
+	return c.Redirect("http://localhost:3000", http.StatusTemporaryRedirect)
+}
+
+func LoginSuccess(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+	fmt.Print(c)
+	claims, err := ValidateToken(cookie)
+	if err != nil {
+		return c.JSON("Error")
+	}
+	var user models.User
+	userCollection := database.MI.Db.Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	e := userCollection.FindOne(ctx, bson.M{"email": claims.Email}).Decode(&user)
+
+	if e != nil {
+		return c.SendString("error")
+	}
+
+	return c.JSON(&fiber.Map{
+		"user": user,
 	})
 }
