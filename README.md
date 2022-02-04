@@ -18,3 +18,58 @@ The project will be a marketplace for students which will provide a one stop pla
 * Rachit Rathi
 ## Tech Stack
 React, Golang, MongoDB
+
+
+
+## Steps to run Frontend
+- Install node
+- In the Frontend Directory run the following command on the terminal
+
+```http
+  npm install    [--To install node modules for react]
+```
+```http
+  npm start    [--To run the client on the localhost:3000]
+```
+## Steps to run Backend
+- Install Go
+- In the Backend Directory run the following command on the terminal
+
+```http
+  go mod tidy    [--To Intialize Go modules]
+```
+- Create a .env file in the Backend Directory as follows
+
+```bash
+GOOGLE_OAUTH_CLIENT_ID=
+GOOGLE_OAUTH_CLIENT_SECRET=
+JWT_SECRET=
+MONGO_URI=
+DB = 
+PORT = 
+CLIENT_PORT = 
+```
+- To run the server tye command
+```http
+  go run main.go  [--Runs the server on the specified PORT]
+```
+## Backend API Reference
+
+#### User Sign In using Google OAuth2
+
+```http
+  GET /google/login         [--Signs In or Registers the User using Google]
+```
+#### Check Logged In User
+
+```http
+  GET /api/login-success   [--Send logged in user data by parsing cookies]
+```
+
+#### Logout User
+
+```http
+  GET /api/logout          [--Logs out user]
+```
+
+

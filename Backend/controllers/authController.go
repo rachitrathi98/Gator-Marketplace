@@ -42,7 +42,7 @@ type customClaims struct {
 
 func oAuthGoogleConfig() *oauth2.Config {
 	return &oauth2.Config{
-		RedirectURL:  "http://localhost:5000/google/callback",
+		RedirectURL:  "http://localhost:" + os.Getenv("PORT") + "/google/callback",
 		ClientID:     os.Getenv("GOOGLE_OAUTH_CLIENT_ID"),
 		ClientSecret: os.Getenv("GOOGLE_OAUTH_CLIENT_SECRET"),
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"},
@@ -117,7 +117,7 @@ func GoogleCallback() fiber.Handler {
 		}
 		c.Cookie(&cookie)
 
-		return c.Redirect("http://localhost:3000/home", http.StatusTemporaryRedirect)
+		return c.Redirect("http://localhost:"+os.Getenv("CLIENT_PORT")+"/home", http.StatusTemporaryRedirect)
 	}
 }
 
@@ -194,7 +194,7 @@ func Logout(c *fiber.Ctx) error {
 
 	c.Cookie(&cookie)
 
-	return c.Redirect("http://localhost:3000", http.StatusTemporaryRedirect)
+	return c.Redirect("http://localhost:"+os.Getenv("CLIENT_PORT"), http.StatusTemporaryRedirect)
 }
 
 func LoginSuccess(c *fiber.Ctx) error {
