@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import Search from './Search';
-const Navbar = ({ user }) => {
+const Navbar = ({user}) => {
+
   const logout = () => {
     localStorage.removeItem("user");
-    window.open("http://localhost:5000/api/logout", "_self");
+    window.open("http://localhost:8000/api/logout", "_self");
   };
 const handleClick=()=>{
-  window.location.href = "http://localhost:5000/google/login";
+  if(user) localStorage.removeItem("user")
+  window.location.href = "http://localhost:8000/google/login";
 };
 
   return (
@@ -24,14 +26,7 @@ const handleClick=()=>{
       <Search/>
       {user ? (
         <ul className="list">
-          <li className="listItem">
-            <img
-              src={user.photos[0].value}
-              alt=""
-              className="avatar"
-            />
-          </li>
-          <li className="listItem">{user.displayName}</li>
+          <li className="listItem">{user.name}</li>
           <li className="listItem" onClick={logout}>
             Logout
           </li>
