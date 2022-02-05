@@ -6,22 +6,55 @@ As a student at a college or university,  it becomes quite tough to find a singl
 The project will be a marketplace for students which will provide a one stop platform for the student community to buy/rent and sell things
 
 
-## Features
+
+## Table of Contents
+
+- [What Was Accomplised](#what-was-accomplised)
+- [Team Members](#team-members)
+- [Tech Stack](#tech-stack)
+- [Running](#running)
+- [Sprint 1 Demo video](#sprint-1-demo-video)
+
+
+
+
+## What Was Accomplised
+
+### Frontend
+- Top nav-bar with logo, name, search bar and user loggin, that displays name once user is logged-in.
+- Product cards on hone page with multiple products. For now this had dummy data.
+- Basic Skeleton of the new product form that we will use in next
+
+### Backend 
+- Connection to MongoDB database
+- Succesful data storage and retrival
+- Used GoogleAut for user authentication and registration 
+
+
+### Final Features
 * User Authentication and Authorization
 * Product Listing for sale with CRUD operations
 * Product sorting by categories and filters
 * Communication Channel with seller if buyer is interested
+
+
+
 ## Team Members
 * Animesh Srivastava
 * Taher Mulla
 * Mustafa Gangardiwala
 * Rachit Rathi
+
+
+
 ## Tech Stack
 React, Golang, MongoDB
 
 
 
-## Steps to run Frontend
+## Running
+
+### Steps to run Frontend
 - Install node
 - In the Frontend Directory run the following command on the terminal
 
@@ -31,7 +64,7 @@ React, Golang, MongoDB
 ```
   npm start    [--To run the client on the localhost:3000]
 ```
-## Steps to run Backend
+### Steps to run Backend
 - Install Go
 - In the Backend Directory run the following command on the terminal
 
@@ -53,7 +86,7 @@ CLIENT_PORT =
 ```
   go run main.go  [--Runs the server on the specified PORT]
 ```
-## Backend API Reference
+### Backend API Reference
 
 #### User Sign In using Google OAuth2
 
