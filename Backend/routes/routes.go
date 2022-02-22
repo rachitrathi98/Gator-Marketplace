@@ -13,5 +13,5 @@ func Setup(app *fiber.App) {
 	app.Get("/api/logout", controllers.Logout)
 	app.Get("/api/user", controllers.User)
 	app.Get("/api/login-success", controllers.LoginSuccess)
-
+	app.Post("/api/post-listing", controllers.AddListing)
 }
