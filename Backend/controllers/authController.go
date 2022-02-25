@@ -7,7 +7,6 @@ import (
 	"GatorMarketPlace/utils"
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -56,7 +55,6 @@ func GoogleLogin() fiber.Handler {
 		tempState, err := utils.GenerateRandomString()
 		state = tempState
 		if err != nil {
-			fmt.Println(err)
 			return c.SendString("Some error has occurred.")
 		}
 		url := oAuthGoogleConfig().AuthCodeURL(state)
@@ -71,7 +69,6 @@ func GoogleCallback() fiber.Handler {
 		}
 		token, err := oAuthGoogleConfig().Exchange(context.Background(), c.FormValue("code"))
 		if err != nil {
-			fmt.Print(err)
 			c.Status(http.StatusInternalServerError)
 			return c.SendString("Error in Token Callback")
 		}
@@ -85,7 +82,6 @@ func GoogleCallback() fiber.Handler {
 		err = json.NewDecoder(resp.Body).Decode(&googleResponse)
 
 		if err != nil {
-			fmt.Println(err)
 			c.Status(http.StatusInternalServerError)
 			return c.JSON("Error")
 		}
@@ -199,7 +195,6 @@ func Logout(c *fiber.Ctx) error {
 
 func LoginSuccess(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
-	fmt.Print(c)
 	claims, err := ValidateToken(cookie)
 	if err != nil {
 		return c.JSON("Error")
