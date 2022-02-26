@@ -97,3 +97,27 @@ func GetListing(c *fiber.Ctx) error {
 	})
 
 }
+
+func DeleteListing(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+	_, err := ValidateToken(cookie)
+	if err != nil {
+		return c.JSON("Error user not Authenticated")
+	}
+
+	var id primitive.ObjectID
+	id, _ = primitive.ObjectIDFromHex(c.Params("id"))
+	listingsCollections := database.MI.Db.Collection("listings")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+	_, e := listingsCollections.DeleteOne(ctx, bson.M{"_id": id})
+
+	if e != nil {
+		return c.SendString("error")
+	}
+
+	return c.JSON(&fiber.Map{
+		"res": "Listing Deleted",
+	})
+
+}
