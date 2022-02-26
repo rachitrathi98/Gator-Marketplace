@@ -69,3 +69,31 @@ func UpdateListing(c *fiber.Ctx) error {
 	})
 
 }
+
+func GetListing(c *fiber.Ctx) error {
+	cookie := c.Cookies("jwt")
+	_, err := ValidateToken(cookie)
+	if err != nil {
+		return c.JSON("Error user not Authenticated")
+	}
+
+	var listings []models.Listing
+	listingsCollections := database.MI.Db.Collection("listings")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	cursor, dberr := listingsCollections.Find(ctx, bson.M{})
+
+	if dberr != nil {
+		return dberr
+	}
+
+	for cursor.Next(context.Background()) {
+		var list models.Listing
+		_ = cursor.Decode(&list)
+		listings = append(listings, list)
+	}
+
+	return c.JSON(&fiber.Map{
+		"listings": listings,
+	})
+
+}
