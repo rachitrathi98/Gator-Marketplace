@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
 import Search from './Search';
+import Add from './Add';
+
+const showListings = ()=>{
+  window.location.href = "http://localhost:3000/Listings";
+}
+const showRequests = ()=>{
+  window.location.href = "http://localhost:3000/Requests";
+}
 const Navbar = ({user}) => {
 
   const logout = () => {
@@ -25,12 +33,19 @@ const handleClick=()=>{
       </span>
       <Search/>
       {user ? (
+        
         <ul className="list">
+         
           <li className="listItem">{user.name}</li>
           <li className="listItem" onClick={logout}>
             Logout
           </li>
+          <li className="listItem" onClick={showListings}>My Listings</li>
+          <li className="listItem" onClick={showRequests}>My Requests</li>
+        <Add/>
+          
         </ul>
+        
       ) : (
         <button
         className="btn btn-white"
@@ -40,6 +55,7 @@ const handleClick=()=>{
           Login
         </button>
       )}
+      
     </div>
   );
 };

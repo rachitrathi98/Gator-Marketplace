@@ -1,50 +1,29 @@
-export const form = () => {
-    return (
-        <div>
-            <div>
-        <form>
-          <div>
-            
-            <label>
-              Name:
-              <input type="text" name="name" />
-            </label>
-          </div>
-          
-          <div>
-            <label>
-              Product Name:
-              <input type="text" name="product_name" />
-            </label>
-          </div>
+import { useEffect, useState } from 'react';
+import FileBase64 from 'react-file-base64';
 
-          <div>
-            <label>
-              Product Catagory:
-              <input type="text" name="product_catagory" />
-            </label>
-          </div>
-
-          <div>
-            <label>
-              Product Condition:
-              <input type="text" name="product_condition" />
-            </label>
-          </div>
-          
-          <div>
-            <label>
-              Location:
-              <input type="text" name="Location" />
-            </label>
-          </div>
-
-          
-
-
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-        </div>
-    )
+const Form = () => {
+const [item, setItem] = useState({ title: '', image: '' });
+const onSubmitHandler = async (e) => {
+e.preventDefault();
+console.log(item)
 }
+
+return (
+<div className="wrapper">
+<form action="" onSubmit={onSubmitHandler}>
+<input type="text" className="input-field"
+onChange={e => setItem({ ...item, title: e.target.value })}
+/>
+<FileBase64
+type="file"
+multiple={false}
+onDone={({ base64 }) => setItem({ ...item, image: base64 })}
+/>
+<div className="right-align">
+<button className="btn">submit</button>
+</div>
+</form>
+</div>
+);
+}
+export default Form;
