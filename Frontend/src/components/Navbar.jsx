@@ -22,15 +22,14 @@ const handleClick=()=>{
   return (
     
     <div className="navbar">
+    <Link className="link" to="/">
         <img
-            src = "https://www.desktopbackground.org/download/o/2011/12/08/309191_about-university-of-florida-logo_1280x1024_h.gif"
+            src = "https://recsports.ufl.edu/wp-content/themes/x-child-ufsa/framework/img/Orange-UF-Monogram.jpg"
             className = "logoImage"
         />
-      <span className="logo">
-        <Link className="link" to="/">
-          Gator Marketplace
+        
         </Link>
-      </span>
+        
       <Search/>
       {user ? (
         
@@ -48,8 +47,8 @@ const handleClick=()=>{
         
       ) : (
         <button
-        className="btn btn-white"
         role="button"
+        class="btn btn-danger btn-floating"
         onClick={handleClick}
        > 
           Login

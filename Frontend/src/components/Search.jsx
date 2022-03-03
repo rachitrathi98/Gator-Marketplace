@@ -1,15 +1,9 @@
 const SearchBar = () => (
     <form action="/" method="get">
-        <label htmlFor="header-search">
-            <span className="visually-hidden"></span>
-        </label>
-        <input
-            type="text"
-            id="header-search"
-            placeholder="Search for Products"
-            name="s" 
-        />
-        <button type="submit">Search</button>
+        <div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button" class = "btn btn-danger btn-floating">search</button>
+</div>
     </form>
 );
 
