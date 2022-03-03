@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Landing from "./components/Landing";
 import Post from "./pages/Post";
-import Form from "./pages/Form";
+import ProductListing from "./pages/ProductListing";
 
 const App = () => {
 
@@ -14,7 +14,7 @@ const App = () => {
 
               <Routes>
                   <Route path="/home" element={<Home />} />
-                  <Route path = "/form" element = {<Form/>}/>
+                  <Route path = "/Form" element = {<ProductListing/>}/>
                   <Route path="/" element={<Landing />} />
                   <Route path="post/:id" element={<Post/>}/>
               </Routes>
