@@ -114,3 +114,57 @@ func TestPostListing(t *testing.T) {
 		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
 	}
 }
+func TestPutListing(t *testing.T) {
+
+	tests := []struct {
+		description  string // description of the test case
+		route        string // route path to test
+		expectedCode int
+		reqBody      string
+		headers      map[string]string // expected HTTP status code
+	}{
+		// First test case
+		{
+			description:  "PUT HTTP status 200",
+			route:        "/update-listing/621817ec6fa253d45b6eb2ec",
+			expectedCode: 200,
+			reqBody:      `{"title": "New Updated Listing", "description" : "This is a new updated Listing", "tag" : "House", "createdBy" : "61fdd0848cea9423f269f01c", "location" : "Gainesville", "price" : "3"}`,
+			headers:      map[string]string{`Content-Type`: `application/json`},
+		},
+	}
+
+	app := fiber.New()
+
+	// Create route with PUT method for test
+	app.Put("/update-listing/:id", func(c *fiber.Ctx) error {
+
+		var listing models.Listing
+
+		er := c.BodyParser(&listing)
+
+		if er != nil {
+			return c.SendString("Body is Empty")
+		}
+
+		listing.Id, _ = primitive.ObjectIDFromHex(c.Params("id"))
+		listingsCollections := database.MI.Db.Collection("listings")
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+		_, e := listingsCollections.UpdateOne(ctx, bson.M{"_id": listing.Id}, bson.M{"$set": listing})
+
+		if e != nil {
+			return e
+		}
+
+		return c.SendStatus(200)
+	})
+
+	for _, test := range tests {
+
+		rbody, _ := json.Marshal(test.reqBody)
+		req := httptest.NewRequest("PUT", test.route, bytes.NewReader(rbody))
+		req.Header.Add(`Content-Type`, `application/json`)
+		resp, _ := app.Test(req, 1)
+
+		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
+	}
+}
