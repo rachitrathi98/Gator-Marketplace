@@ -18,7 +18,15 @@ const Home = () => {
           setUser(response.data.user); 
         }
           
-        
+
+        const resp = await axios.get("http://localhost:8000/api/get-listings", {withCredentials : true})
+        if(resp.data && resp.data.listings)
+        {
+           let lists = []
+           resp.data.listings.map((listing) => lists.push(listing))
+           setListings(resp.data.listings)
+           console.log(listings)
+        }
 
       }, []);
 
