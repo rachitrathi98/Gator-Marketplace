@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import FileBase64 from 'react-file-base64';
 import '../app.css';
-import NavbarPlain from '/Users/animeshsrivastava/Desktop/main-gator-marketplace/Gator-Marketplace/Frontend/src/components/NavbarPlain';
+import NavbarPlain from '../components/NavbarPlain';
 //import { userService } from '../_services';
 
 const ProductListing = () => {

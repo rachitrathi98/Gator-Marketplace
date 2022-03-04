@@ -6,6 +6,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gofiber/fiber/v2 v2.25.0
 	github.com/joho/godotenv v1.4.0
+	github.com/stretchr/testify v1.6.1
 	go.mongodb.org/mongo-driver v1.8.2
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 )
@@ -13,11 +14,13 @@ require (
 require (
 	cloud.google.com/go v0.65.0 // indirect
 	github.com/andybalholm/brotli v1.0.3 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/golang/snappy v0.0.3 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.32.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
@@ -32,4 +35,5 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )

@@ -14,8 +14,8 @@ type Listing struct {
 	Id          primitive.ObjectID `json:"id" bson:"_id"`
 	Title       string             `json:"title" bson:"title"`
 	Description string             `json:"description" bson:"description"`
-	Tags        []string           `json:"tags" bson:"tags"`
-	Images      []string           `json:"images" bson:"images"`
+	Tag         string             `json:"tag" bson:"tag"`
+	Image       string             `json:"image" bson:"image"`
 	CreatedBy   string             `json:"createdBy" bson:"createdBy"`
 	Location    string             `json:"location" bson:"location"`
 	Price       string             `json:"price" bson:"price"`
