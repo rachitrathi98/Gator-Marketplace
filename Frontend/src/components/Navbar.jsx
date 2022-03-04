@@ -39,8 +39,8 @@ const handleClick=()=>{
           <li className="listItem" id = "logout" onClick={logout}>
             Logout
           </li>
-          <li className="listItem" onClick={showListings}>My Listings</li>
-          <li className="listItem" onClick={showRequests}>My Requests</li>
+          <li className="listItem" id="listings" onClick={showListings}>My Listings</li>
+          <li className="listItem" id="requests" onClick={showRequests}>My Requests</li>
         <Add/>
           
         </ul>
