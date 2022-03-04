@@ -3,23 +3,31 @@ import { Formik, Field, Form } from 'formik';
 import FileBase64 from 'react-file-base64';
 import '../app.css';
 import NavbarPlain from '../components/NavbarPlain';
+import isAuth from "../helper/auth"
+import axios from "axios"
+
+
 //import { userService } from '../_services';
 
-const ProductListing = () => {
+const ProductListing = ({history}) => {
 const [item, setItem] = useState('');
   const initialValues = {
     title: '',
     description: '',
-    cost: '',
-    tags: '',
+    price: '',
+    tag: '',
     location: '',
   };
 
-  function onSubmit(fields) {
+  async function onSubmit(fields) {
     const obj ={...fields}
     obj.image = item.image
-    alert("Uploaded Successfully!")
-    console.log(obj) 
+    obj.createdBy = isAuth().email
+    const response = await axios.post("http://localhost:8000/api/post-listing", obj, {withCredentials : true})
+    if(response.data && response.data.res){
+      window.location.href = "http://localhost:3000/home";
+    }
+    else window.location.href = "http://localhost:3000/Form";
   }
 
   return (
@@ -65,18 +73,18 @@ const [item, setItem] = useState('');
             </div>
 
             <div className="form-group col col-3">
-              <label>Cost</label>
+              <label>price</label>
               <Field
-                name="cost"
-                id = "cost"
-                type="number"
+                name="price"
+                id = "price"
+                type="text"
                 placeholder="$"
                 className={'form-control'}
               />
             </div>
             <div className="form-group col col-4">
-              <label>Tags</label>
-              <Field name="tags" as="select" className={'form-control'}>
+              <label>tag</label>
+              <Field name="tag" as="select" className={'form-control'}>
                 <option selected value=""></option>
                 <option value="furniture">Furniture</option>
                 <option value="stationary">Stationary</option>

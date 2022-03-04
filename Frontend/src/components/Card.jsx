@@ -1,21 +1,24 @@
 import { Link } from "react-router-dom";
+import { Fragment, useEffect, useState } from "react";
 import isAuth from "../helper/auth"
+import axios from "axios"
 
 
-const Card = ({ post }) => {
+const Card = ({ listing }) => {
+
   return (
     <div className="card">
     {isAuth()?
-      <Link className="link" to={`/post/${post.id}`}>
-        <span className="title">{post.title}</span>
-        <img src={post.img} alt="" className="img" />
-        <p className="desc">{post.desc}</p>
+      <Link className="link" to={`/listing/${listing.id}`}>
+        <span className="title">{listing.title}</span>
+        <img src={listing.image} alt="" className="img" />
+        <p className="desc">{listing.description}</p>
         <button type="cardButton" className="cardButton">Read More</button>
       </Link>:
       <a href = "http://localhost:8000/google/login">
-      <span className="title">{post.title}</span>
-        <img src={post.img} alt="" className="img" />
-        <p className="desc">{post.desc}</p>
+      <span className="title">{listing.title}</span>
+        <img src={listing.image} alt="" className="img" />
+        <p className="desc">{listing.description}</p>
         <button type="cardButton" className="cardButton">Read More</button>
         </a>
 }
