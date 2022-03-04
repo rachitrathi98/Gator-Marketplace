@@ -9,9 +9,26 @@ describe("Tests for Gator Marketplace", ()=>{
         cy.get('#login').should('exist');
     })
 
+    it("authenticated user can see listings",()=>{
+        cy.visit("/home");
+        cy.get('#listings').should('exist');
+    })
+
+    it("authenticated user can see requests",()=>{
+        cy.visit("/home");
+        cy.get('#requests').should('exist');
+    })
+
+
     it("check if home page has authenticated user",()=>{
         cy.visit("/home");
         cy.get('#logout').should('exist');
+
+    })
+
+    it("authenticated user can click on read more and see posts",()=>{
+        cy.visit("/home");
+        cy.get('#cardButton').should('be.visible');
         
 });
         
