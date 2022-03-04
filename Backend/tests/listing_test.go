@@ -168,3 +168,46 @@ func TestPutListing(t *testing.T) {
 		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
 	}
 }
+func TestDeleteListing(t *testing.T) {
+
+	tests := []struct {
+		description  string // description of the test case
+		route        string // route path to test
+		expectedCode int
+	}{
+		// First test case
+		{
+			description:  "PUT HTTP status 200",
+			route:        "/delete-listing/621817ec6fa253d45b6eb2ec",
+			expectedCode: 200,
+		},
+	}
+
+	app := fiber.New()
+
+	// Create route with DELETE method for test
+	app.Delete("/delete-listing/:id", func(c *fiber.Ctx) error {
+
+		var id primitive.ObjectID
+		id, _ = primitive.ObjectIDFromHex(c.Params("id"))
+		listingsCollections := database.MI.Db.Collection("listings")
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+		_, e := listingsCollections.DeleteOne(ctx, bson.M{"_id": id})
+
+		if e != nil {
+			return e
+		}
+
+		return c.SendStatus(400)
+	})
+
+	for _, test := range tests {
+
+		req := httptest.NewRequest("DELETE", test.route, nil)
+		req.Header.Add(`Content-Type`, `application/json`)
+		resp, _ := app.Test(req, 1)
+
+		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
+	}
+}
