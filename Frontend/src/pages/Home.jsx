@@ -7,29 +7,29 @@ import Navbar from "../components/Navbar";
 
 const Home = () => {
   const[user, setUser]  = useState({})  
+  const[listings, setListings] = useState([{}])
 
-    useEffect(() => {
-      async function fetchData()
-      {
+    useEffect(async () => {
+     
         const response = await axios.get("http://localhost:8000/api/login-success", {withCredentials : true})
-        console.log(response)
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        setUser(response.data.user);
-        console.log(user);
+        if(response && response.data)
+        {
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          setUser(response.data.user); 
+        }
           
-      }
-      fetchData()
-      }, []);
+        
 
+      }, []);
 
 
     return (
       <div>
         <Navbar user = {user}/> 
       <div className="home">
-        {posts.map(post => (
-          <Card key={post.id} post={post} />
-        ))}
+      {listings.map(listing => (
+                <Card key={listing.id} listing={listing} />
+            ))}
       </div>
       </div>
     )
