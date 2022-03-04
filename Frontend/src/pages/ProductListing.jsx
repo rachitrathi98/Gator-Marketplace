@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import FileBase64 from 'react-file-base64';
 import '../app.css';
-import Navbar from '/Users/animeshsrivastava/Desktop/main-gator-marketplace/Gator-Marketplace/Frontend/src/components/Navbar';
+import NavbarPlain from '/Users/animeshsrivastava/Desktop/main-gator-marketplace/Gator-Marketplace/Frontend/src/components/NavbarPlain';
 //import { userService } from '../_services';
 
 const ProductListing = () => {
@@ -23,7 +23,7 @@ const [item, setItem] = useState('');
   }
 
   return (
-    <><Navbar/>
+    <><NavbarPlain/>
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
           <Form >
           <div>
@@ -39,14 +39,15 @@ const [item, setItem] = useState('');
             </div>
            {item.image ? 
             <div className="card-image">
-<img className="preview" style={{  width: 'auto', height: 150 }} src={item.image} />
-</div>
+              <img className="preview" style={{  width: 'auto', height: 150 }} src={item.image} />
+            </div>
             : <div></div>
             }
             <div className="form-group col col-4">
               <label>Title</label>
               <Field
                 title="Product Title"
+                id="title"
                 name="title"
                 type="text"
                 className={'form-control'}
@@ -56,16 +57,18 @@ const [item, setItem] = useState('');
               <label>Description</label>
               <Field
                 rows="3"
+                id = "description"
                 name="description"
                 type="text"
                 className={'form-control'}
               />
             </div>
 
-            <div className="form-group col col-1">
+            <div className="form-group col col-3">
               <label>Cost</label>
               <Field
                 name="cost"
+                id = "cost"
                 type="number"
                 placeholder="$"
                 className={'form-control'}
@@ -97,6 +100,7 @@ const [item, setItem] = useState('');
             <div className="form-group col-10">
               <button
                 type="submit"
+                id = "submitted"
                 // disabled={isSubmitting}
                 className="btn btn-primary"
               >

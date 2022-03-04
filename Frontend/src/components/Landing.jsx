@@ -6,7 +6,7 @@ const Landing = () => {
 
     return (
         <><Navbar user = {isAuth() ? isAuth().name : ""} />
-        <div className="home">
+        <div className="home" id ="landing">
             {posts.map(post => (
                 <Card key={post.id} post={post} />
             ))}

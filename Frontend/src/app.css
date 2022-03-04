@@ -7,9 +7,8 @@
   display: flex;
    justify-content: center;
    margin-left: 70px;
-   margin-top: -50px;
+   margin-top: -20px ;
    align-items: center;
-   margin-bottom: 20px;
 }
 
 .logoImage{
@@ -90,15 +89,6 @@
   line-height: 25px;
 }
 
-.cardButton {
-  border: none;
-  border-radius: 10px;
-  background-color: #FA4616;
-  padding: 10px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
 
 .post {
   display: flex;
@@ -136,12 +126,23 @@
 }
 
 
+.cardButton {
+  border: none;
+  border-radius: 10px;
+  background-color: #FA4616;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
 .cardInterested{
   border: none;
   border-radius: 10px;
   background-color: #FA4616;
   padding: 10px;
-  margin-left: 10%;
+  float: right;
   color: white;
   font-weight: bold;
   cursor: pointer;

@@ -4,7 +4,7 @@ const openForms = ()=>{
 
 const Add = () => {
 return(
-    <div><button type = "button" class="btn btn-danger btn-floating" onClick={openForms}>+</button></div>
+    <div><button type = "addButton" id = "add" class="btn btn-danger btn-floating" onClick={openForms}>+</button></div>
 
 )
 }

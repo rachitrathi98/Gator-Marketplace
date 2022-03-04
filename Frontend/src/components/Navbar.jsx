@@ -36,7 +36,7 @@ const handleClick=()=>{
         <ul className="list">
          
           <li className="listItem">{user.name}</li>
-          <li className="listItem" onClick={logout}>
+          <li className="listItem" id = "logout" onClick={logout}>
             Logout
           </li>
           <li className="listItem" onClick={showListings}>My Listings</li>
@@ -48,6 +48,7 @@ const handleClick=()=>{
       ) : (
         <button
         role="button"
+        id = "login"
         class="btn btn-danger btn-floating"
         onClick={handleClick}
        > 
