@@ -19,7 +19,7 @@ const Card = ({ listing }) => {
       <span className="title">{listing.title}</span>
         <img src={listing.image} alt="" className="img" />
         <p className="desc">{listing.description}</p>
-        <button type="cardButton" className="cardButton">Read More</button>
+        <button id = "cardButton" type="cardButton" className="cardButton">Read More</button>
         </a>
 }
     </div>

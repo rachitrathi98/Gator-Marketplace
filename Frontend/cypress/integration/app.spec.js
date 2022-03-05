@@ -39,8 +39,8 @@ describe("Tests for Gator Marketplace", ()=>{
         cy.get('#title').type('Title');
         cy.get('#description').clear();
         cy.get('#description').type('Product Description');
-        cy.get('#cost').clear();
-        cy.get('#cost').type('69');
+        cy.get('#price').clear();
+        cy.get('#price').type('69');
         cy.get(':nth-child(7) > .form-control').select('stationary');
         cy.get(':nth-child(8) > .form-control').select('hawthorne');
         cy.get('#submitted').click();
