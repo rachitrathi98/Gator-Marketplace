@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
-import {posts} from "../data"
+import { useEffect, useState } from "react";
 import Card from "../components/Card"
 import axios from "axios"
 import Navbar from "../components/Navbar";

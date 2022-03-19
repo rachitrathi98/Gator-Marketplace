@@ -1,5 +1,4 @@
 import isAuth from "../helper/auth";
-import {posts} from "../data"
 import Card from "./Card";
 import Navbar from "./Navbar";
 import axios from "axios"
