@@ -4,6 +4,7 @@ import (
 	"GatorMarketPlace/database"
 	"GatorMarketPlace/models"
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -140,6 +141,28 @@ func GetListingLanding(c *fiber.Ctx) error {
 
 	return c.JSON(&fiber.Map{
 		"listings": listings,
+	})
+
+}
+
+func GetListingById(c *fiber.Ctx) error {
+
+	cookie := c.Cookies("jwt")
+	_, err := ValidateToken(cookie)
+	if err != nil {
+		return c.JSON("Error user not Authenticated")
+	}
+
+	var id primitive.ObjectID
+	id, _ = primitive.ObjectIDFromHex(c.Params("id"))
+	fmt.Print(c.Params("id"))
+	listingsCollections := database.MI.Db.Collection("listings")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	result := listingsCollections.FindOne(ctx, bson.M{"_id": id})
+	listing := models.Listing{}
+	result.Decode(&listing)
+	return c.JSON(&fiber.Map{
+		"listing": listing,
 	})
 
 }
