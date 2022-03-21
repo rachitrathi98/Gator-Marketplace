@@ -16,6 +16,7 @@ func Setup(app *fiber.App) {
 	app.Post("/api/post-listing", controllers.AddListing)
 	app.Put("/api/update-listing/:id", controllers.UpdateListing)
 	app.Get("/api/get-listings", controllers.GetListing)
+	app.Get("/api/get-listing/:id", controllers.GetListingById)
 	app.Delete("/api/delete-listing/:id", controllers.DeleteListing)
 	app.Get("/api/get-listings-landing", controllers.GetListingLanding)
 }
