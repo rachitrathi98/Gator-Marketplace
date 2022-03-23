@@ -1,25 +1,34 @@
-import { useLocation } from "react-router";
-import { posts } from "../data";
-import NavbarPlain from "../components/NavbarPlain"
+import isAuth from "../helper/auth";
+import Navbar from "../components/Navbar";
+import axios from "axios"
+import React, { useEffect, useState } from 'react';
+import {useParams} from 'react-router-dom'
 
-const Post = () => {
-  const location = useLocation();
-  const path = location.pathname.split("/")[2];
 
-  const post = posts.find((p) => p.id.toString() === path);
+const Post = ({listing}) => {
+  const [dataList, setDataList] = useState([])
+  const parts = window.location.href.split('/')
+    useEffect(async () => {
+        const resp = await axios.get("http://localhost:8000/api/get-listing/"+ parts[4], {withCredentials:true})
+        setDataList(resp.data.listing)
+        console.log(dataList)    
+        }, []);
 
-  console.log(location);
-  return (
-    <><NavbarPlain/>
-    <div className="post">
-      <img src={post.img} alt="" className="postImg" />
-      <h1 className="postTitle">{post.title}</h1>
-      <p className="postDesc">{post.desc}</p>
-      <p className="postLongDesc">{post.longDesc}</p>
-      <button className="cardInterested">Interested</button>
+    return (
+        <><Navbar user = {isAuth() ? isAuth().name : ""} />
+        <div className="post" id ="post">
+             <span className="title">Title: {dataList.title}</span>  
+             <span >Seller: {dataList.createdBy}</span>
+             <span >Description: {dataList.description}</span>
+             <span >Location: {dataList.location}</span>
+             <span >Tag: {dataList.tag}</span>  
+             <span >Price: {dataList.price}</span>  
+             <div className="card-image">
+              <img className="preview" style={{  width: 'auto', height: 150 }} src={dataList.image} />
+            </div>
 
-    </div></>
-  );
+        </div></>
+    );
 };
 
 export default Post;
