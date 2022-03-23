@@ -38,6 +38,7 @@ const [item, setItem] = useState('');
     obj.image = item.image
     obj.createdBy = isAuth().email
     console.log(obj);
+    alert("Uploaded Successfully!");
     if(obj.tag.length && obj.location.length && obj.image)
     {
       const response = await axios.post("http://localhost:8000/api/post-listing", obj, {withCredentials : true})
