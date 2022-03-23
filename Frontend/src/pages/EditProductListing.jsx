@@ -31,7 +31,7 @@ const [formValues, setformValues] = useState({})
             values[field] = resp.data.listing[field];
         })
         setformValues(values)
-        setItem(values.image)
+        setItem({...item, image: values.image})
 
      }
     }, []);
@@ -50,6 +50,7 @@ const [formValues, setformValues] = useState({})
   async function onSubmit(fields) {
 
     console.log(fields)
+    fields.image = item.image
     const resp = await axios.put("http://localhost:8000/api/update-listing/"+id, {...fields}, {withCredentials:true})
     if(resp && resp.data && resp.data.res)
     {
@@ -116,5 +117,49 @@ const [formValues, setformValues] = useState({})
                 <option value="electronics">Electronics</option>
               </Field>
             </div>
+             <div className="form-group col col-4">
+              <label>Location</label>
+
+              <Field name="location" as="select" className={'form-control'}>
+                <option selected value=""></option>
+                <option value="gainesville">Gainesville</option>
+                <option value="ocala">Ocala</option>
+                <option value="hawthorne">Hawthorne</option>
+                <option value="highsprings">High Springs</option>
+                <option value="crosscreek">Cross Creek</option>
+                <option value="melrose">Melrose</option>
+              </Field>
+            </div>
+            <div className = "form-group col">
+             <label>Upload Product Image 
+                <FileBase64
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) => setItem({ ...item, image: base64 })}
+                />
+                </label>
+            </div>
+           {item.image ? 
+            <div className="card-image">
+              <img className="preview" style={{  width: 'auto', height: 150 }} src={item.image} />
+            </div>
+            : <div></div>
+            }
+            <div className="form-group col-10">
+              <button
+                type="submit"
+                id = "submitted"
+                // disabled={isSubmitting}
+                className="btn btn-primary"
+              >
+                Update Listing
+              </button>
+            </div>
+            </div>
+          </Form>
+    )}
+    </Formik>
+    </>
+  );
 }
 export default EditProductListing;
