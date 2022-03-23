@@ -47,5 +47,74 @@ const [formValues, setformValues] = useState({})
       .min(1, 'Enter a valid price')
       .required('Required'),  
   });
+  async function onSubmit(fields) {
+
+    console.log(fields)
+    const resp = await axios.put("http://localhost:8000/api/update-listing/"+id, {...fields}, {withCredentials:true})
+    if(resp && resp.data && resp.data.res)
+    {
+        window.location.href = "http://localhost:3000/home";
+    }
+  }
+  
+  return (
+    <><NavbarPlain/>
+    <Formik initialValues={formValues} validationSchema={ProductRegSchema} onSubmit={onSubmit} enableReinitialize = {true}>
+    {({ errors, touched })  => (
+          <Form >
+          <div>
+            <h1><center>Enter Product Details</center></h1>
+           
+            <div className="form-group col col-4">
+              <label>Title</label>
+              <Field
+                title="Product Title"
+                id="title"
+                name="title"
+                type="text"
+                className={'form-control'}
+              />
+              <ErrorMessage name="title">
+                { msg => <div style={{ color: 'red' }}>{msg}</div> }
+            </ErrorMessage>
+            </div>
+            <div className="form-group col">
+              <label>Description</label>
+              <Field
+                rows="3"
+                id = "description"
+                name="description"
+                type="text"
+                className={'form-control'}
+              />
+
+            <ErrorMessage name="description">
+                { msg => <div style={{ color: 'red' }}>{msg}</div> }
+            </ErrorMessage>
+            </div>
+
+            <div className="form-group col col-3">
+              <label>price</label>
+              <Field
+                name="price"
+                id = "price"
+                type="text"
+                placeholder="$"
+                className={'form-control'}
+              />
+             <ErrorMessage name="price">
+                { msg => <div style={{ color: 'red' }}>{msg}</div> }
+            </ErrorMessage>
+            </div>
+            <div className="form-group col col-4">
+              <label>tag</label>
+              <Field name="tag" as="select" className={'form-control'}>
+                <option selected value=""></option>
+                <option value="furniture">Furniture</option>
+                <option value="stationary">Stationary</option>
+                <option value="kitchen">Kitchen</option>
+                <option value="electronics">Electronics</option>
+              </Field>
+            </div>
 }
-  export default EditProductListing;
+export default EditProductListing;
