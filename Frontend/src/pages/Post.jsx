@@ -26,8 +26,7 @@ const Post = ({listing}) => {
              <div className="card-image">
               <img className="preview" style={{  width: 'auto', height: 150 }} src={dataList.image} />
             </div>
-
-        </div></>
+        </div></>        
     );
 };
 
