@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Search from './Search';
 import Add from './Add';
+import { useState } from "react";
 
 const showListings = ()=>{
   window.location.href = "http://localhost:3000/Listings";
@@ -8,7 +9,9 @@ const showListings = ()=>{
 const showRequests = ()=>{
   window.location.href = "http://localhost:3000/Requests";
 }
-const Navbar = ({user}) => {
+const Navbar = ({user, listing, searchListing}) => {
+
+  const [name, setName] = useState([]);
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -17,6 +20,27 @@ const Navbar = ({user}) => {
 const handleClick=()=>{
   if(user) localStorage.removeItem("user")
   window.location.href = "http://localhost:8000/google/login";
+};
+
+const findListings = (e) => {
+  console.log("Checking for changes:", e.target.value);
+  setName(e.target.value);
+  checkname(e.target.value);
+};
+
+const checkname = (value) => {
+  if (value.length) {
+    let newValues = listing.filter((info) => {
+
+      if (info.description.toLowerCase().includes(value.toLowerCase().trim()))
+        return info;
+    });
+    console.log("Checking for newValues", newValues);
+    searchListing(newValues);
+  } else {
+    console.log("Hey it came here:");
+    searchListing(listing);
+  }
 };
 
   return (
@@ -29,8 +53,18 @@ const handleClick=()=>{
         />
         
         </Link>
-        
-      <Search/>
+        {user ? 
+        <div className="col-12 col-lg-8 mb-3 mb-lg-0">
+          <input
+            className="pt-1 px-3 border-0 mb-3 mb-lg-0"
+            type="text"
+            placeholder={"Search"}
+            onChange={findListings}
+            value={name}
+            style={{ width: "60%", height: "95%" }}
+          />
+        </div> : null}   
+
       {user ? (
         
         <ul className="list">
