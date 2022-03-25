@@ -16,18 +16,49 @@ const Post = ({listing}) => {
 
     return (
         <><Navbar user = {isAuth() ? isAuth().name : ""} />
-        <div className="post" id ="post">
-             <span className="title">Title: {dataList.title}</span>  
-             <span >Seller: {dataList.createdBy}</span>
-             <span >Description: {dataList.description}</span>
-             <span >Location: {dataList.location}</span>
-             <span >Tag: {dataList.tag}</span>  
-             <span >Price: {dataList.price}</span>  
-             <div className="card-image">
-              <img className="preview" style={{  width: 'auto', height: 150 }} src={dataList.image} />
-            </div>
 
-        </div></>
+<center><img className="preview" style={{  width: 700, height: 400, margin:5 }} src={dataList.image} /></center>
+        <div className="post" id ="post">
+<div class="row justify-content-center">
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Seller Name</th>
+      <td>{dataList.createdBy}</td>
+    </tr>
+    <tr>
+      <th>Product</th>
+      <td>{dataList.title}</td>
+    
+    </tr>
+    <tr>
+      <th>Product Description</th>
+      <td>{dataList.description}</td>
+     
+    </tr>
+    <tr>
+      <th>Product Category</th>
+      <td>{dataList.tag}</td>
+      
+    </tr>
+    <tr>
+      <th>Seller Location</th>
+      <td>{dataList.location}</td>
+      
+    </tr>
+    <tr>
+      <th>Price By Seller</th>
+      <td>{dataList.price}</td>
+      
+    </tr>
+  </tbody>
+</table>
+</div>
+<button id = "cardButton" type="cardButton" className="cardButton">Interested</button>
+
+  
+        </div></>        
     );
 };
 

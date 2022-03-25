@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import isAuth from "../helper/auth";
 import Card from "../components/Card";
 import NavbarPlain from "../components/NavbarPlain";

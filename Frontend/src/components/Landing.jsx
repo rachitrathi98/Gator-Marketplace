@@ -20,11 +20,17 @@ const Landing = () => {
 
     return (
         <><Navbar user = {isAuth() ? isAuth().name : ""} />
+        
         <div className="home" id ="landing">
-            {listings.map(listing => (
+        {listings.length>0?
+            listings.map(listing => (
                 <Card key={listing.id} listing={listing} />
-            ))}
+            ))
+            :<div></div>
+            }
         </div></>
+    
+
     );
 };
 
