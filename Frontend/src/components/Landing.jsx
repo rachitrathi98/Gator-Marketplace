@@ -39,11 +39,10 @@ const indexOfLastListing = currentPage * listingsPerPage;
 
   let render = <Loading/>;
 
-  if(listings && listings.length > 0)
+  if(listings && listings.length > 1)
   {
     render = (
         <Fragment>
-        <Navbar user = {isAuth() ? isAuth().name : ""} />
         <div className="home" id ="landing">
         {currentListings.length>0?
             listings.map(listing => (
@@ -70,8 +69,15 @@ const indexOfLastListing = currentPage * listingsPerPage;
         </div>
         </Fragment>
     );
-    }
- return render
+  }
+  return (
+  
+    <Fragment>
+    <Navbar user = {isAuth() ? isAuth().name : ""} />
+    {render}
+    </Fragment>
+  )
+
 };
 
 export default Landing;
