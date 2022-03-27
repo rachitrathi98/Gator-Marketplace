@@ -1,8 +1,9 @@
 import isAuth from "../helper/auth";
 import Card from "../components/Card";
 import NavbarPlain from "../components/NavbarPlain";
+import Loading from "../helper/LoadingSign";
 import axios from "axios"
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 // const Listing = ({ post }) => {
 //   return (
@@ -32,13 +33,27 @@ const Listings = () => {
          }
         }, []);
 
-    return (
-        <><NavbarPlain user = {isAuth() ? isAuth().name : ""} />
+    let render = <Loading/>;
+
+    if(listings && listings.length > 1)
+  {
+    render = (
         <div className="home" id ="landing">
-            {listings.filter(listing => listing.createdBy == isAuth().email).map(listing => (
+        {listings.filter(listing => listing.createdBy == isAuth().email).map(listing => (
                 <Card key={listing.id} listing={listing} />
-            ))}
-        </div></>
+            ))}            
+        </div>
+
+
+    )}
+
+    return (
+
+        <>
+        <NavbarPlain user = {isAuth() ? isAuth().name : ""} />
+        {render}
+            
+        </>
     );
 };
 

@@ -72,10 +72,10 @@ const indexOfLastListing = currentPage * listingsPerPage;
   }
   return (
   
-    <Fragment>
+    <>
     <Navbar user = {isAuth() ? isAuth().name : ""} />
     {render}
-    </Fragment>
+    </>
   )
 
 };
