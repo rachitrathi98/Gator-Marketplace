@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Card from "../components/Card"
 import axios from "axios"
 import Navbar from "../components/Navbar";
 import ReactPaginate from "react-paginate";
+import Loading from "../helper/LoadingSign";
 import React from "react";
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [listingsPerPage, setListingsPerPage] = useState(2);
 
+    
 
     useEffect(async () => {
      
@@ -49,16 +51,21 @@ const Home = () => {
   const paginate = ({ selected: selectedPage }) =>
     setCurrentPage(selectedPage + 1);
   const pageCount = Math.ceil(filter_listings.length / listingsPerPage);
-  
-    return (
-      <div>
-        <Navbar user = {user} listing = {listings} searchListing = {searchListing} /> 
-      <div className="home">
-      {currentListings.map(listing => (
+  let render = <Loading/>;
+
+  if(listings && listings.length > 1)
+  {
+    render = (
+        <Fragment>
+        <div className="home" id ="landing">
+        {currentListings.length>0?
+            listings.map(listing => (
                 <Card key={listing.id} listing={listing} />
-            ))}
-      </div>
-      <div className="center">
+            ))
+            :<div></div>
+            }
+        </div>
+        <div className="center">
           <ReactPaginate
             onPageChange={paginate}
             pageCount={pageCount}
@@ -74,8 +81,18 @@ const Home = () => {
             activeClassName={"active"}
           />
         </div>
+        </Fragment>
+    );
+  }
+
+    return (
+      <div>
+        <Navbar user = {user} listing = {listings} searchListing = {searchListing} /> 
+        {render}
       </div>
     )
 }
 
 export default Home
+
+

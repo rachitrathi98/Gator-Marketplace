@@ -54,7 +54,7 @@ const checkname = (value) => {
         
         </Link>
         {user ? 
-        <div className="col-12 col-lg-8 mb-3 mb-lg-0">
+        <div className="col-10 col-lg-6 mb-3 mb-lg-0">
           <input
             className="pt-1 px-3 border-0 mb-3 mb-lg-0"
             type="text"
