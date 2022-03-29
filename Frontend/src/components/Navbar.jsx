@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import Search from './Search';
 import Add from './Add';
 import { useState } from "react";
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-select';
+
 
 const showListings = ()=>{
   window.location.href = "http://localhost:3000/Listings";
@@ -12,6 +15,34 @@ const showRequests = ()=>{
 const Navbar = ({user, listing, searchListing}) => {
 
   const [name, setName] = useState([]);
+  const [dropDownOption, setdropDownOption] = useState([]);
+  const [dropDownOptionTag, setdropDownOptionTag] = useState([]);
+
+  const dropDownOptions = [
+    { label: "Gainesville", value: 1 },
+    { label: "Ocala", value: 2 },
+    { label: "Hawthorne", value: 3 },
+    { label: "High Springs", value: 4 },
+    { label: "Cross Creek", value: 5 },
+    { label: "Melrose", value: 6 },
+  ];
+
+  const dropDownOptionsTag = [
+    { label: "Furniture", value: 1 },
+    { label: "Electronics", value: 2 },
+    { label: "Stationary", value: 3 },
+    { label: "Kitchen", value: 4 },
+   
+  ];
+
+  const onDropSelect = (selectedItem) => {
+    setdropDownOption(selectedItem);
+  };
+
+  const onDropSelectTag = (selectedItem) => {
+    setdropDownOptionTag(selectedItem);
+  };
+  
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -54,16 +85,34 @@ const checkname = (value) => {
         
         </Link>
         {user ? 
-        <div className="col-10 col-lg-6 mb-3 mb-lg-0">
+        <>
+        <div className="col-10 col-lg-3 mb-3 mb-lg-0">
           <input
             className="pt-1 px-3 border-0 mb-3 mb-lg-0"
             type="text"
             placeholder={"Search"}
             onChange={findListings}
             value={name}
-            style={{ width: "60%", height: "95%" }}
+            style={{ width: "90%", height: "95%" }}
           />
-        </div> : null}   
+        </div> 
+        
+        <Dropdown
+            options={dropDownOptions}
+            onChange={onDropSelect}
+            value={dropDownOption}
+            placeholder="Filter By Location"
+          />
+
+        <Dropdown
+
+            value={dropDownOptionTag}
+            options={dropDownOptionsTag}
+            onChange={onDropSelectTag}
+            placeholder="Filter By Categories"
+          />
+
+        </>: null}   
 
       {user ? (
         
