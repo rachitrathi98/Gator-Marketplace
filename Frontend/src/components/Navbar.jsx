@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import Search from './Search';
 import Add from './Add';
 import { useState } from "react";
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-select';
-
+import '../app.css';
 
 const showListings = ()=>{
   window.location.href = "http://localhost:3000/Listings";
@@ -12,11 +10,17 @@ const showListings = ()=>{
 const showRequests = ()=>{
   window.location.href = "http://localhost:3000/Requests";
 }
-const Navbar = ({user, listing, searchListing}) => {
+const Navbar = ({user, listing, searchListing, filterLocation, filterTag}) => {
 
   const [name, setName] = useState([]);
   const [dropDownOption, setdropDownOption] = useState([]);
   const [dropDownOptionTag, setdropDownOptionTag] = useState([]);
+  const [filterBy, setFilterBy] = useState([]);
+
+  const Options = [
+    { label: "Location", value: 1 },
+    { label: "Category", value: 2 },
+  ];
 
   const dropDownOptions = [
     { label: "Gainesville", value: 1 },
@@ -26,6 +30,7 @@ const Navbar = ({user, listing, searchListing}) => {
     { label: "Cross Creek", value: 5 },
     { label: "Melrose", value: 6 },
   ];
+  
 
   const dropDownOptionsTag = [
     { label: "Furniture", value: 1 },
@@ -37,13 +42,27 @@ const Navbar = ({user, listing, searchListing}) => {
 
   const onDropSelect = (selectedItem) => {
     setdropDownOption(selectedItem);
+    filterLocation(selectedItem.label)
   };
 
   const onDropSelectTag = (selectedItem) => {
     setdropDownOptionTag(selectedItem);
+    filterTag(selectedItem.label)
   };
   
+  const handleChange = (selectedItem) =>{
+      setFilterBy(selectedItem.label)
+  }
 
+  const colourStyles = {
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isFocused ? "#999999" : null,
+        color: "#333333"
+      };
+    }
+  };
   const logout = () => {
     localStorage.removeItem("user");
     window.open("http://localhost:8000/api/logout", "_self");
@@ -54,7 +73,6 @@ const handleClick=()=>{
 };
 
 const findListings = (e) => {
-  console.log("Checking for changes:", e.target.value);
   setName(e.target.value);
   checkname(e.target.value);
 };
@@ -66,10 +84,8 @@ const checkname = (value) => {
       if (info.description.toLowerCase().includes(value.toLowerCase().trim()))
         return info;
     });
-    console.log("Checking for newValues", newValues);
     searchListing(newValues);
   } else {
-    console.log("Hey it came here:");
     searchListing(listing);
   }
 };
@@ -96,21 +112,31 @@ const checkname = (value) => {
             style={{ width: "90%", height: "95%" }}
           />
         </div> 
-        
+
         <Dropdown
+            options={Options}
+            onChange={handleChange}
+            value={filterBy}
+            placeholder="Filter By"
+            styles={colourStyles}
+          /> 
+
+        {filterBy=="Location" ?   <Dropdown
             options={dropDownOptions}
             onChange={onDropSelect}
             value={dropDownOption}
             placeholder="Filter By Location"
-          />
-
-        <Dropdown
+            styles={colourStyles}
+          /> : filterBy ==="Category" ?
+         <Dropdown
 
             value={dropDownOptionTag}
             options={dropDownOptionsTag}
             onChange={onDropSelectTag}
             placeholder="Filter By Categories"
-          />
+            styles={colourStyles}
+          /> :  <div></div>
+        }
 
         </>: null}   
 

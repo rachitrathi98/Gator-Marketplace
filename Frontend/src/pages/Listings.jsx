@@ -40,7 +40,7 @@ const Listings = () => {
     render = (
         <div className="home" id ="landing">
         {listings.filter(listing => listing.createdBy == isAuth().email).map(listing => (
-                <Card key={listing.id} listing={listing} />
+                <Card key={listing.id} listing={listing} myListings ={true}/>
             ))}            
         </div>
 
