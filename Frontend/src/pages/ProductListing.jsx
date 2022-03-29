@@ -71,7 +71,7 @@ const [item, setItem] = useState('');
             </ErrorMessage>
             </div>
             <div className="form-group col">
-              <label>Description</label>
+              <label>Product Description</label>
               <Field
                 rows="3"
                 id = "description"
@@ -86,7 +86,7 @@ const [item, setItem] = useState('');
             </div>
 
             <div className="form-group col col-3">
-              <label>price</label>
+              <label>Product Price</label>
               <Field
                 name="price"
                 id = "price"
@@ -99,7 +99,7 @@ const [item, setItem] = useState('');
             </ErrorMessage>
             </div>
             <div className="form-group col col-4">
-              <label>tag</label>
+              <label>Product Category</label>
               <Field name="tag" as="select" className={'form-control'}>
                 <option selected value=""></option>
                 <option value="furniture">Furniture</option>
@@ -109,7 +109,7 @@ const [item, setItem] = useState('');
               </Field>
             </div>
             <div className="form-group col col-4">
-              <label>Location</label>
+              <label>Seller Location</label>
 
               <Field name="location" as="select" className={'form-control'}>
                 <option selected value=""></option>
