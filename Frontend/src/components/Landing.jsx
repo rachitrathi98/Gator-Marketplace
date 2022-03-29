@@ -45,7 +45,7 @@ const indexOfLastListing = currentPage * listingsPerPage;
         <Fragment>
         <div className="home" id ="landing">
         {currentListings.length>0?
-            listings.map(listing => (
+            currentListings.map(listing => (
                 <Card key={listing.id} listing={listing} />
             ))
             :<div></div>

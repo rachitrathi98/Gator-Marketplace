@@ -20,3 +20,16 @@ type Listing struct {
 	Location    string             `json:"location" bson:"location"`
 	Price       string             `json:"price" bson:"price"`
 }
+
+type Requests struct {
+	Id          primitive.ObjectID `json:"id" bson:"_id"`
+	ListingId   string             `json:"listingId" bson:"listingId"`
+	Title       string             `json:"title" bson:"title"`
+	Description string             `json:"description" bson:"description"`
+	Location    string             `json:"location" bson:"location"`
+	Tag         string             `json:"tag" bson:"tag"`
+	Price       string             `json:"price" bson:"price"`
+	Seller      string             `json:"seller" bson:"seller"`
+	Buyer       string             `json:"buyer" bson:"buyer"`
+	Status      string             `json:"status" bson:"status"`
+}

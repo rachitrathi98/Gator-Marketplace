@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import ReactPaginate from "react-paginate";
 import Loading from "../helper/LoadingSign";
 import React from "react";
+import isAuth from "../helper/auth";
 
 const Home = () => {
   const[user, setUser]  = useState({})  
@@ -41,9 +42,10 @@ const Home = () => {
     setFilterListings(newList);
   };
 
+  const lvalues = filter_listings.filter((listing) => listing.createdBy != isAuth().email)
   const indexOfLastListing = currentPage * listingsPerPage;
   const indexOfFirstListing = indexOfLastListing - listingsPerPage;
-  const currentListings = filter_listings.slice(
+  const currentListings = lvalues.slice(
     indexOfFirstListing,
     indexOfLastListing,
   );
@@ -59,7 +61,7 @@ const Home = () => {
         <Fragment>
         <div className="home" id ="landing">
         {currentListings.length>0?
-            listings.map(listing => (
+            currentListings.map(listing => (
                 <Card key={listing.id} listing={listing} />
             ))
             :<div></div>
