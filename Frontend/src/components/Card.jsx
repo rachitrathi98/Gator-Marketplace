@@ -4,7 +4,7 @@ import isAuth from "../helper/auth"
 import axios from "axios"
 import '@fortawesome/fontawesome-free/js/all.js';
 
-const Card = ({ listing, myListings}) => {
+const Card = ({ listing, myListings, deleteHandler}) => {
   console.log(listing)
   const iStyles = { color: "white" };
   return (
@@ -15,13 +15,25 @@ const Card = ({ listing, myListings}) => {
         <img src={listing.image} alt="" className="img" />
         <p className="desc">{listing.description}</p>
         <button type="cardButton" className="cardButton">Read More</button>
-        {myListings ? 
-        <Link to={`/update-listing/${listing.id}`}>
+        {myListings ? (
+          <Fragment>    
+             <button
+                onClick={(e) => deleteHandler(e, listing.id)}
+              className="float-right btn btn-danger btn-sm mx-3"
+              style={{marginTop: "8px"}}
+            >
+              <i className="far fa-trash-alt"></i>{" "}
+            </button>
+           <Link to={`/update-listing/${listing.id}`}>
               <i
                 className="fa fa-pencil float-right btn btn-primary mt-2"
                 style={iStyles}
               ></i>
-            </Link> : null
+            </Link> 
+         
+            </Fragment>
+
+            ): null
       }
       </Link>
      
