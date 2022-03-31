@@ -19,7 +19,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 //   );
 // };
 
-const Listings = () => {
+const Listings = ({history}) => {
 
     const[listings, setListings] = useState([{}])
     useEffect(async () => {
@@ -33,6 +33,17 @@ const Listings = () => {
          }
         }, []);
 
+    const deleteHandler = async (e, listingId) =>{
+
+        let isConf = window.confirm("Are you sure you want to delete ?");
+        if (isConf) {
+            const resp = await axios.delete(`http://localhost:8000/api/delete-listing/${listingId}`, {withCredentials: true})
+           if(resp.data && resp.data.res)
+            {
+                window.location.href="http://localhost:3000/Listings";
+            }
+        }
+    }
     let render = <Loading/>;
 
     if(listings && listings.length > 1)
@@ -40,10 +51,9 @@ const Listings = () => {
     render = (
         <div className="home" id ="landing">
         {listings.filter(listing => listing.createdBy == isAuth().email).map(listing => (
-                <Card key={listing.id} listing={listing} myListings ={true}/>
+                <Card key={listing.id} listing={listing} myListings ={true} deleteHandler = {deleteHandler}/>
             ))}            
         </div>
-
 
     )}
 
@@ -52,7 +62,6 @@ const Listings = () => {
         <>
         <NavbarPlain user = {isAuth() ? isAuth().name : ""} />
         {render}
-            
         </>
     );
 };
