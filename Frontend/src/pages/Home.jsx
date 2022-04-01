@@ -10,10 +10,7 @@ import isAuth from "../helper/auth";
 const Home = () => {
   const[user, setUser]  = useState({})  
   const[listings, setListings] = useState([{}])
-  const[locationCheck, setLocationCheck] = useState('')
-  const[tagCheck, setTagCheck] = useState('')  
   const [filter_listings, setFilterListings] = useState([]);
-  const [final_listings, setFinalListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [listingsPerPage, setListingsPerPage] = useState(3);
 
@@ -46,13 +43,11 @@ const Home = () => {
   };
 
   const filterLocation = (value) => {
-    setLocationCheck(value)
     let listings_temp = listings.filter((listing) => listing.location===value)
     setFilterListings(listings_temp) 
   };
 
   const filterTag = (value) => {
-      setTagCheck(value)
       let listings_temp = listings.filter((listing) => listing.tag===value)
       setFilterListings(listings_temp)
   };

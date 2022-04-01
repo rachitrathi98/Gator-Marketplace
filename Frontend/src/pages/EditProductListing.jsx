@@ -110,11 +110,10 @@ const [formValues, setformValues] = useState({})
             <div className="form-group col col-4">
               <label>tag</label>
               <Field name="tag" as="select" className={'form-control'}>
-                <option selected value=""></option>
-                <option value="furniture">Furniture</option>
-                <option value="stationary">Stationary</option>
-                <option value="kitchen">Kitchen</option>
-                <option value="electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Stationary">Stationary</option>
+                <option value="Kitchen">Kitchen</option>
+                <option value="Electronics">Electronics</option>
               </Field>
             </div>
              <div className="form-group col col-4">
@@ -122,12 +121,12 @@ const [formValues, setformValues] = useState({})
 
               <Field name="location" as="select" className={'form-control'}>
                 <option selected value=""></option>
-                <option value="gainesville">Gainesville</option>
-                <option value="ocala">Ocala</option>
-                <option value="hawthorne">Hawthorne</option>
-                <option value="highsprings">High Springs</option>
-                <option value="crosscreek">Cross Creek</option>
-                <option value="melrose">Melrose</option>
+                <option value="Gainesville">Gainesville</option>
+                <option value="Ocala">Ocala</option>
+                <option value="Hawthorne">Hawthorne</option>
+                <option value="High Springs">High Springs</option>
+                <option value="Cross Creek">Cross Creek</option>
+                <option value="Melrose">Melrose</option>
               </Field>
             </div>
             <div className = "form-group col">
