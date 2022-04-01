@@ -19,13 +19,19 @@ The project will be a marketplace for students which will provide a one stop pla
 * User Authentication and Authorization
 * Product Listing for sale with CRUD operations
 * Product sorting by categories and filters
-* Communication Channel with seller if buyer is interested
+* Communication Channel with seller if buyer is interested and Payment Gateway to buy
 
 
 
 ## Team Members
+
+### Frontend
 * Animesh Srivastava
 * Taher Mulla
+* Mustafa Gangardiwala
+* Rachit Rathi
+
+### Backend
 * Mustafa Gangardiwala
 * Rachit Rathi
 
@@ -70,4 +76,11 @@ CLIENT_PORT =
 ```
   go run main.go  [--Runs the server on the specified PORT]
 ```
+
+- To run test cases: In the Backend Directory within the Tests Folder run the following command on the terminal
+
+```
+  go test -v    [--To run unit test cases]
+```
+
 
