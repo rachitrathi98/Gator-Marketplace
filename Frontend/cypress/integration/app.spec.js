@@ -5,7 +5,7 @@ describe("Tests for Gator Marketplace", ()=>{
     });
 
     it("check if landing page has non authenticated user",()=>{
-        cy.visit("/");
+        cy.visit("/home");
         cy.get('#login').should('exist');
     })
 
@@ -24,12 +24,36 @@ describe("Tests for Gator Marketplace", ()=>{
         cy.visit("/home");
         cy.get('#logout').should('exist');
 
-    })
+    });
 
     it("authenticated user can click on read more and see posts",()=>{
         cy.visit("/home");
         cy.get('#cardButton').should('be.visible');
         
+});
+
+it('click on any card to read product description', () => {
+    cy.visit('/home')
+    cy.get('#cardButton').click();
+    cy.get('#interestedButton').should('exist');
+    cy.get('#interestedButton').click();
+    
+});
+
+it('Set location filter', () => {
+    cy.visit('/home')
+    cy.get('#filter').click();
+    cy.get(':nth-child(3) > .form-control').select('Location');
+    cy.get(':nth-child(4) > .form-control').select('Gainesville');
+    cy.get('#cardButton').should('exist');
+});
+
+it('Set Tags filter', () => {
+    cy.visit('/home')
+    cy.get('#filter').click();
+    cy.get(':nth-child(3) > .form-control').select('Category');
+    cy.get(':nth-child(4) > .form-control').select('Stationary');
+    cy.get('#cardButton').should('exist');
 });
         
     it('opens form, populate fields and assert', () => {
@@ -40,10 +64,13 @@ describe("Tests for Gator Marketplace", ()=>{
         cy.get('#description').clear();
         cy.get('#description').type('Product Description');
         cy.get('#price').clear();
-        cy.get('#price').type('69');
-        cy.get(':nth-child(7) > .form-control').select('stationary');
-        cy.get(':nth-child(8) > .form-control').select('hawthorne');
+        cy.get('#price').type('4');
+        cy.get(':nth-child(7) > .form-control').select('Stationary');
+        cy.get(':nth-child(8) > .form-control').select('Hawthorne');
         cy.get('#submitted').click();
         cy.get('.logoImage').click();
     })
+
+    
+
 })

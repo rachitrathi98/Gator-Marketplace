@@ -57,7 +57,7 @@ const Post = ({listing}) => {
               </tbody>
             </table>
           </div>
-          <button id = "cardButton" type="cardButton" className="cardButton">Interested</button>
+          <button id = "InterestedButton" type="cardButton" className="cardButton">Interested</button>
         </div>
         </>
     );

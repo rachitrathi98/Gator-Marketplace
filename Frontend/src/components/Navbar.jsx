@@ -114,6 +114,7 @@ const checkname = (value) => {
         </div> 
 
         <Dropdown
+            id = "filter"
             options={Options}
             onChange={handleChange}
             value={filterBy}
@@ -122,6 +123,7 @@ const checkname = (value) => {
           /> 
 
         {filterBy=="Location" ?   <Dropdown
+            id = "location"
             options={dropDownOptions}
             onChange={onDropSelect}
             value={dropDownOption}
@@ -129,7 +131,7 @@ const checkname = (value) => {
             styles={colourStyles}
           /> : filterBy ==="Category" ?
          <Dropdown
-
+            id = "tags"
             value={dropDownOptionTag}
             options={dropDownOptionsTag}
             onChange={onDropSelectTag}
