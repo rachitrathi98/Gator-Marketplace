@@ -5,6 +5,7 @@ import Loading from "../helper/LoadingSign";
 import axios from "axios"
 import React, { Fragment, useEffect, useState } from 'react';
 import ReactPaginate from "react-paginate";
+import NewCard from "../components/NewCard";
 
 
 // const Listing = ({ post }) => {
@@ -72,7 +73,7 @@ const Listings = ({history}) => {
         <Fragment>
         <div className="home" id ="landing">
         {currentListings.map(listing => (
-                <Card key={listing.id} listing={listing} myListings ={true} deleteHandler = {deleteHandler}/>
+                <NewCard key={listing.id} listing={listing} myListings ={true} deleteHandler = {deleteHandler}/>
             ))}            
         </div>
         <div className="center">

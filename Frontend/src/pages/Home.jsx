@@ -6,6 +6,7 @@ import ReactPaginate from "react-paginate";
 import Loading from "../helper/LoadingSign";
 import React from "react";
 import isAuth from "../helper/auth";
+import NewCard from "../components/NewCard";
 
 const Home = () => {
   const[user, setUser]  = useState({})  
@@ -73,7 +74,7 @@ const Home = () => {
         <div className="home" id ="landing">
         {currentListings.length>0?
             currentListings.map(listing => (
-                <Card key={listing.id} listing={listing} />
+                <NewCard key={listing.id} listing={listing} />
             ))
             :<div></div>
             }
