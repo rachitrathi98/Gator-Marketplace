@@ -6,6 +6,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import ReactPaginate from "react-paginate";
 import Loading from "../helper/LoadingSign";
 import "../style/loading.scss";
+import NewCard from "./NewCard";
 
 const Landing = () => {
 
@@ -46,7 +47,7 @@ const indexOfLastListing = currentPage * listingsPerPage;
         <div className="home" id ="landing">
         {currentListings.length>0?
             currentListings.map(listing => (
-                <Card key={listing.id} listing={listing} />
+                <NewCard key={listing.id} listing={listing} />
             ))
             :<div></div>
             }
