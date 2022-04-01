@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "cypress": "^9.5.1",
+    "cypress-social-logins": "^1.13.2",
     "eslint-plugin-cypress": "^2.12.1"
   }
 }

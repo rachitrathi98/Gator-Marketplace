@@ -81,6 +81,7 @@ const Home = () => {
         </div>
         <div className="center">
           <ReactPaginate
+            id= "pagination"
             onPageChange={paginate}
             pageCount={pageCount}
             breakClassName={"page-item"}
