@@ -71,6 +71,24 @@ it('Set Tags filter', () => {
         cy.get('.logoImage').click();
     })
 
-    
+    it('Check if this new listing exists in the Users Listings', () => {
+        cy.visit('/Listings')
+        cy.get('#cardButton').should('exist');
+        cy.get('#cardButton').click();
+    });
+  
+    it('Delete listing from User Listings', () => {
+        cy.visit('/Listings')
+        cy.get('#cardButton').should('exist');
+        cy.get('#delete').click();
+        cy.get('#cardButton').should('not.exists');
+    });
+  
+    it('Pagination on home page', () => {
+        cy.visit('/home')
+        cy.get('#pagination').should('exist');
+  
+  
+ });
 
 })
