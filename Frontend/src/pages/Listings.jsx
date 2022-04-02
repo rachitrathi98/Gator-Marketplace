@@ -65,7 +65,7 @@ const Listings = ({history}) => {
   
     const paginate = ({ selected: selectedPage }) =>
       setCurrentPage(selectedPage + 1);
-    const pageCount = Math.ceil(listings.length / listingsPerPage);
+    const pageCount = Math.ceil(lvalues.length / listingsPerPage);
 
     if(listings && listings.length > 1)
   {

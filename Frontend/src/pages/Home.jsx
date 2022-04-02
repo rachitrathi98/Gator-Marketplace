@@ -64,7 +64,7 @@ const Home = () => {
 
   const paginate = ({ selected: selectedPage }) =>
     setCurrentPage(selectedPage + 1);
-  const pageCount = Math.ceil(filter_listings.length / listingsPerPage);
+  const pageCount = Math.ceil(lvalues.length / listingsPerPage);
   let render = <Loading/>;
 
   if(listings && listings.length > 1)
