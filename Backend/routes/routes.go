@@ -20,4 +20,5 @@ func Setup(app *fiber.App) {
 	app.Delete("/api/delete-listing/:id", controllers.DeleteListing)
 	app.Get("/api/get-listings-landing", controllers.GetListingLanding)
 	app.Post("/api/listing-request", controllers.ListingRequest)
+	app.Post("/api/create-payment-intent", controllers.CreatePaymentIntent)
 }

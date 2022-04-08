@@ -103,7 +103,7 @@ const Home = () => {
     return (
       <div>
         <Navbar 
-        user = {user} 
+        user = {user.name} 
         listing = {listings} 
         searchListing = {searchListing} 
         filterLocation={filterLocation} 

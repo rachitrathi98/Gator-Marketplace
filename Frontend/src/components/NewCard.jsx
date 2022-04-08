@@ -42,7 +42,11 @@ const NewCard = ({ listing, myListings, deleteHandler}) => {
               ></i>
             </Link> 
             </>
-            ): null
+            ): 
+            (<div> <Link to={`/checkout/${listing.id}`}>
+            <MDBBtn >Pay</MDBBtn>
+              </Link> 
+              </div>)
       }
       </MDBCardBody>
     </MDBCard> :

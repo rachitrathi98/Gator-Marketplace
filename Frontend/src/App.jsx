@@ -7,6 +7,7 @@ import Post from "./pages/Post";
 import Listings from "./pages/Listings";
 import ProductListing from "./pages/ProductListing";
 import EditProductListing from "./pages/EditProductListing";
+import CheckoutListing from "./components/CheckoutListing";
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
                   <Route path="/" element={<Landing />} />
                   <Route path="listing/:id" element={<Post/>}/>
                   <Route path = "update-listing/:id" element = {<EditProductListing/>}/>
+                  <Route path = "checkout/:id" element = {<CheckoutListing/>}/>
               </Routes>
           </div>
       </BrowserRouter>

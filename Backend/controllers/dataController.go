@@ -5,9 +5,13 @@ import (
 	"GatorMarketPlace/models"
 	"context"
 	"fmt"
+	"log"
+	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/stripe/stripe-go/v72"
+	"github.com/stripe/stripe-go/v72/paymentintent"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -165,4 +169,32 @@ func GetListingById(c *fiber.Ctx) error {
 		"listing": listing,
 	})
 
+}
+
+func calculateOrderAmount() int64 {
+	return 1400
+}
+
+func CreatePaymentIntent(c *fiber.Ctx) error {
+
+	stripe.Key = os.Getenv("STRIPE_SECRET_KEY")
+
+	params := &stripe.PaymentIntentParams{
+		Amount:   stripe.Int64(calculateOrderAmount()),
+		Currency: stripe.String(string(stripe.CurrencyUSD)),
+		AutomaticPaymentMethods: &stripe.PaymentIntentAutomaticPaymentMethodsParams{
+			Enabled: stripe.Bool(true),
+		},
+	}
+
+	pi, err := paymentintent.New(params)
+	log.Printf("pi.New: %v", pi.ClientSecret)
+
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(&fiber.Map{
+		"clientSecret": pi.ClientSecret,
+	})
 }
