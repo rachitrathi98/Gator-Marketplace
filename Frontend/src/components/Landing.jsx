@@ -16,6 +16,8 @@ const Landing = () => {
     const [listingsPerPage, setListingsPerPage] = useState(2);
 
     useEffect(async () => {
+
+        localStorage.removeItem("user");
         const resp = await axios.get("http://localhost:8000/api/get-listings-landing")
          if(resp.data && resp.data.listings)
          {

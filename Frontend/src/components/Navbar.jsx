@@ -146,7 +146,7 @@ const checkname = (value) => {
         
         <ul className="list">
          
-          <li className="listItem">{user.name}</li>
+          <li className="listItem">{user}</li>
           <li className="listItem" id = "logout" onClick={logout}>
             Logout
           </li>

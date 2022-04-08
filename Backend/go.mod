@@ -7,6 +7,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.25.0
 	github.com/joho/godotenv v1.4.0
 	github.com/stretchr/testify v1.6.1
+	github.com/stripe/stripe-go/v72 v72.100.0
 	go.mongodb.org/mongo-driver v1.8.2
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 )
