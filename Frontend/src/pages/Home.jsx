@@ -34,7 +34,6 @@ const Home = () => {
            resp.data.listings.map((listing) => lists.push(listing))
            setListings(resp.data.listings)
            setFilterListings(resp.data.listings)
-           console.log(listings)
         }
 
       }, []);

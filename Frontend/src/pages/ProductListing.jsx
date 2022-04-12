@@ -37,6 +37,7 @@ const [item, setItem] = useState('');
     const obj ={...fields}
     obj.image = item.image
     obj.createdBy = isAuth().email
+    obj.seller = isAuth().name
     console.log(obj);
     alert("Uploaded Successfully!");
     if(obj.tag.length && obj.location.length && obj.image)

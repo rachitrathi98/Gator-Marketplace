@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {PaymentElement,useStripe, useElements} from "@stripe/react-stripe-js";
+import axios from "axios"
+import isAuth from "../helper/auth"
 
-export default function CheckoutForm() {
+export default function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
 
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const {listing} = props
 
   useEffect(() => {
     if (!stripe) {
@@ -42,6 +46,13 @@ export default function CheckoutForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const obj = {...listing}
+    obj.buyer = isAuth().name
+    
+    await axios.delete("http://localhost:8000/api/delete-listing/" + listing.id, {withCredentials: true})
+
+    await axios.post("http://localhost:8000/api/sold-listing", obj, {withCredentials: true})
+
     if (!stripe || !elements) {
       return;
     }
@@ -51,7 +62,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: "http://localhost:3000",
+        return_url: "http://localhost:3000/home",
       },
     });
 

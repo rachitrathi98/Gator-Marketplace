@@ -198,3 +198,32 @@ func CreatePaymentIntent(c *fiber.Ctx) error {
 		"clientSecret": pi.ClientSecret,
 	})
 }
+
+func SoldListing(c *fiber.Ctx) error {
+
+	cookie := c.Cookies("jwt")
+	_, err := ValidateToken(cookie)
+	if err != nil {
+		return c.JSON("Error user not Authenticated")
+	}
+
+	var listing models.SoldListing
+	er := c.BodyParser(&listing)
+
+	if er != nil {
+		return c.SendString("Body is Empty")
+	}
+
+	listing.Id = primitive.NewObjectID()
+	listingsCollections := database.MI.Db.Collection("Sold-listings")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	_, e := listingsCollections.InsertOne(ctx, listing)
+
+	if e != nil {
+		return c.SendString("error")
+	}
+
+	return c.JSON(&fiber.Map{
+		"res": "Sold Listing Created",
+	})
+}
