@@ -18,7 +18,8 @@ const [formValues, setformValues] = useState({})
     tag: '',
     location: '',
     createdBy: '',
-    image : ''
+    image : '',
+    seller : ''
   };
 
   useEffect(async () => {

@@ -21,4 +21,5 @@ func Setup(app *fiber.App) {
 	app.Get("/api/get-listings-landing", controllers.GetListingLanding)
 	app.Post("/api/listing-request", controllers.ListingRequest)
 	app.Post("/api/create-payment-intent", controllers.CreatePaymentIntent)
+	app.Post("/api/sold-listing", controllers.SoldListing)
 }

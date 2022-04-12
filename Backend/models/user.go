@@ -19,6 +19,7 @@ type Listing struct {
 	CreatedBy   string             `json:"createdBy" bson:"createdBy"`
 	Location    string             `json:"location" bson:"location"`
 	Price       string             `json:"price" bson:"price"`
+	Seller      string             `json:"seller" bson:"seller"`
 }
 
 type Requests struct {
@@ -32,4 +33,15 @@ type Requests struct {
 	Seller      string             `json:"seller" bson:"seller"`
 	Buyer       string             `json:"buyer" bson:"buyer"`
 	Status      string             `json:"status" bson:"status"`
+}
+
+type SoldListing struct {
+	Id          primitive.ObjectID `json:"id" bson:"_id"`
+	Title       string             `json:"title" bson:"title"`
+	Description string             `json:"description" bson:"description"`
+	Tag         string             `json:"tag" bson:"tag"`
+	CreatedBy   string             `json:"createdBy" bson:"createdBy"`
+	Location    string             `json:"location" bson:"location"`
+	Price       string             `json:"price" bson:"price"`
+	Buyer       string             `json:"buyer" bson:"buyer"`
 }
