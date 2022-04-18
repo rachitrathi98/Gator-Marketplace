@@ -7,8 +7,8 @@ import '../app.css';
 const showListings = ()=>{
   window.location.href = "http://localhost:3000/Listings";
 }
-const showRequests = ()=>{
-  window.location.href = "http://localhost:3000/Requests";
+const showSoldItems = ()=>{
+  window.location.href = "http://localhost:3000/sold-items";
 }
 const Navbar = ({user, listing, searchListing, filterLocation, filterTag}) => {
 
@@ -151,7 +151,7 @@ const checkname = (value) => {
             Logout
           </li>
           <li className="listItem" id="listings" onClick={showListings}>My Listings</li>
-          <li className="listItem" id="requests" onClick={showRequests}>My Requests</li>
+          <li className="listItem" id="requests" onClick={showSoldItems}>Items Sold By You</li>
         <Add/>
           
         </ul>

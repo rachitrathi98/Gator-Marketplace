@@ -47,7 +47,7 @@ export default function CheckoutForm(props) {
     e.preventDefault();
 
     const obj = {...listing}
-    obj.buyer = isAuth().name
+    obj.buyer = isAuth().email
     
     await axios.delete("http://localhost:8000/api/delete-listing/" + listing.id, {withCredentials: true})
 
