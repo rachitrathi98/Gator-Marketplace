@@ -8,6 +8,7 @@ import Listings from "./pages/Listings";
 import ProductListing from "./pages/ProductListing";
 import EditProductListing from "./pages/EditProductListing";
 import CheckoutListing from "./components/CheckoutListing";
+import SoldItems from "./components/SoldItems";
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
                   <Route path="listing/:id" element={<Post/>}/>
                   <Route path = "update-listing/:id" element = {<EditProductListing/>}/>
                   <Route path = "checkout/:id" element = {<CheckoutListing/>}/>
+                  <Route path = "/sold-items" element = {<SoldItems/>}/>
               </Routes>
           </div>
       </BrowserRouter>

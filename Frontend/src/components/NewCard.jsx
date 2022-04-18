@@ -5,22 +5,24 @@ import { Fragment} from "react";
 import isAuth from "../helper/auth"
 import '@fortawesome/fontawesome-free/js/all.js';
 
-const NewCard = ({ listing, myListings, deleteHandler}) => {
+const NewCard = ({ listing, myListings, deleteHandler, sold}) => {
       const iStyles = { color: "white" }
 
   return (
       <>
     {isAuth() ? 
     <MDBCard style={{ maxWidth: '22rem' }}>
-      <MDBCardImage src={listing.image} position='top' alt='...' />
+      {sold ? "" : <MDBCardImage src={listing.image} position='top' alt='...' />}
       <MDBCardBody>
         <MDBCardTitle>{listing.title}</MDBCardTitle>
         <MDBCardText>
         {listing.description}
         </MDBCardText>
+        {sold ? "" :
         <MDBCardText>
         Seller: {listing.seller}
         </MDBCardText>
+        }
         <MDBCardText>
         {"$"+listing.price}
         </MDBCardText>
@@ -45,7 +47,7 @@ const NewCard = ({ listing, myListings, deleteHandler}) => {
               ></i>
             </Link> 
             </>
-            ): 
+            ): sold ? "" :
             (<div> <Link to={`/checkout/${listing.id}`}>
             <MDBBtn >Pay</MDBBtn>
               </Link> 
