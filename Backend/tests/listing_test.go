@@ -16,7 +16,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func TestGetListing(t *testing.T) {
+func TestGetListings(t *testing.T) {
 
 	tests := []struct {
 		description  string // description of the test case
@@ -26,7 +26,7 @@ func TestGetListing(t *testing.T) {
 		// First test case
 		{
 			description:  "GET HTTP status 200",
-			route:        "/get-listings",
+			route:        "/api/get-listings",
 			expectedCode: 200,
 		},
 		// Second test case
@@ -40,7 +40,7 @@ func TestGetListing(t *testing.T) {
 	app := fiber.New()
 
 	// Create route with GET method for test
-	app.Get("/get-listings", func(c *fiber.Ctx) error {
+	app.Get("/api/get-listings", func(c *fiber.Ctx) error {
 		listingsCollections := database.MI.Db.Collection("listings")
 		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 		_, dberr := listingsCollections.Find(ctx, bson.M{})
@@ -73,9 +73,9 @@ func TestPostListing(t *testing.T) {
 		// First test case
 		{
 			description:  "POST HTTP status 200",
-			route:        "/post-listing",
+			route:        "/api/post-listing",
 			expectedCode: 200,
-			reqBody:      `{"title": "New Listing", "description" : "This is a new Listing", "tag" : "House", "createdBy" : "61fdd0848cea9423f269f01c", "location" : "Gainesville", "price" : "3"}`,
+			reqBody:      `{"title": "New Listing", "description" : "This is a new Listing", "tag" : "House", "createdBy" : "gangardiwalam.mg@gmail.com", "location" : "Gainesville", "price" : "3", "seller": ""}`,
 			headers:      map[string]string{`Content-Type`: `application/json`},
 		},
 	}
@@ -83,7 +83,7 @@ func TestPostListing(t *testing.T) {
 	app := fiber.New()
 
 	// Create route with POST method for test
-	app.Post("/post-listing", func(c *fiber.Ctx) error {
+	app.Post("/api/post-listing", func(c *fiber.Ctx) error {
 
 		var listing models.Listing
 		er := c.BodyParser(&listing)
@@ -126,9 +126,9 @@ func TestPutListing(t *testing.T) {
 		// First test case
 		{
 			description:  "PUT HTTP status 200",
-			route:        "/update-listing/621817ec6fa253d45b6eb2ec",
+			route:        "/api/update-listing/621817ec6fa253d45b6eb2ec",
 			expectedCode: 200,
-			reqBody:      `{"title": "New Updated Listing", "description" : "This is a new updated Listing", "tag" : "House", "createdBy" : "61fdd0848cea9423f269f01c", "location" : "Gainesville", "price" : "3"}`,
+			reqBody:      `{"title": "New Updated Listing", "description" : "This is a new Listing", "tag" : "House", "createdBy" : "gangardiwalam.mg@gmail.com", "location" : "Gainesville", "price" : "3", "seller": ""}`,
 			headers:      map[string]string{`Content-Type`: `application/json`},
 		},
 	}
@@ -136,7 +136,7 @@ func TestPutListing(t *testing.T) {
 	app := fiber.New()
 
 	// Create route with PUT method for test
-	app.Put("/update-listing/:id", func(c *fiber.Ctx) error {
+	app.Put("/api/update-listing/:id", func(c *fiber.Ctx) error {
 
 		var listing models.Listing
 
@@ -177,8 +177,8 @@ func TestDeleteListing(t *testing.T) {
 	}{
 		// First test case
 		{
-			description:  "PUT HTTP status 200",
-			route:        "/delete-listing/621817ec6fa253d45b6eb2ec",
+			description:  "DELETE HTTP status 200",
+			route:        "/api/delete-listing/621817ec6fa253d45b6eb2ec",
 			expectedCode: 200,
 		},
 	}
@@ -186,7 +186,7 @@ func TestDeleteListing(t *testing.T) {
 	app := fiber.New()
 
 	// Create route with DELETE method for test
-	app.Delete("/delete-listing/:id", func(c *fiber.Ctx) error {
+	app.Delete("/api/delete-listing/:id", func(c *fiber.Ctx) error {
 
 		var id primitive.ObjectID
 		id, _ = primitive.ObjectIDFromHex(c.Params("id"))
@@ -221,8 +221,8 @@ func TestGetSpecificListing(t *testing.T) {
 	}{
 		// First test case
 		{
-			description:  "PUT HTTP status 200",
-			route:        "/get-listing/621817ec6fa253d45b6eb2ec",
+			description:  "GET HTTP status 200",
+			route:        "/api/get-listing/621817ec6fa253d45b6eb2ec",
 			expectedCode: 200,
 		},
 	}
@@ -230,11 +230,106 @@ func TestGetSpecificListing(t *testing.T) {
 	app := fiber.New()
 
 	// Create route with GET method for test
-	app.Get("/get-listing/:id", func(c *fiber.Ctx) error {
+	app.Get("/api/get-listing/:id", func(c *fiber.Ctx) error {
 
 		var id primitive.ObjectID
 		id, _ = primitive.ObjectIDFromHex(c.Params("id"))
 		listingsCollections := database.MI.Db.Collection("listings")
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+
+		_, e := listingsCollections.Find(ctx, bson.M{"_id": id})
+
+		if e != nil {
+			return e
+		}
+
+		return c.SendStatus(200)
+	})
+
+	for _, test := range tests {
+
+		req := httptest.NewRequest("GET", test.route, nil)
+		req.Header.Add(`Content-Type`, `application/json`)
+		resp, _ := app.Test(req, 1)
+
+		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
+	}
+}
+func TestPostSoldListing(t *testing.T) {
+
+	tests := []struct {
+		description  string // description of the test case
+		route        string // route path to test
+		expectedCode int
+		reqBody      string
+		headers      map[string]string
+	}{
+		// First test case
+		{
+			description:  "POST HTTP status 200",
+			route:        "/api/sold-listing",
+			expectedCode: 200,
+			reqBody:      `{"title": "A new Listing", "description" : "This is a new Listing", "tag" : "Furniture", "createdBy" : "gangardiwalam.mg@gmail.com", "location" : "Gainesville", "price" : "3", "buyer": "animax698@gmail.com"}`,
+			headers:      map[string]string{`Content-Type`: `application/json`},
+		},
+	}
+
+	app := fiber.New()
+
+	// Create route with GET method for test
+	app.Get("/api/sold-listing", func(c *fiber.Ctx) error {
+
+		var listing models.SoldListing
+		er := c.BodyParser(&listing)
+
+		if er != nil {
+			return c.SendString("Body is Empty")
+		}
+
+		listing.Id = primitive.NewObjectID()
+		listingsCollections := database.MI.Db.Collection("Sold-listings")
+		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+		_, e := listingsCollections.InsertOne(ctx, listing)
+
+		if e != nil {
+			return e
+		}
+
+		return c.SendStatus(200)
+	})
+
+	for _, test := range tests {
+
+		req := httptest.NewRequest("POST", test.route, nil)
+		req.Header.Add(`Content-Type`, `application/json`)
+		resp, _ := app.Test(req, 1)
+
+		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
+	}
+}
+func TestGetSoldListings(t *testing.T) {
+
+	tests := []struct {
+		description  string // description of the test case
+		route        string // route path to test
+		expectedCode int
+	}{
+		// First test case
+		{
+			description:  "GET HTTP status 200",
+			route:        "/api/get-sold-listing",
+			expectedCode: 200,
+		},
+	}
+
+	app := fiber.New()
+
+	// Create route with GET method for test
+	app.Get("/api/get-sold-listing", func(c *fiber.Ctx) error {
+
+		var id primitive.ObjectID
+		id, _ = primitive.ObjectIDFromHex(c.Params("id"))
+		listingsCollections := database.MI.Db.Collection("Sold-listings")
 		ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 
 		_, e := listingsCollections.Find(ctx, bson.M{"_id": id})
