@@ -27,7 +27,7 @@ const NewCard = ({ listing, myListings, deleteHandler, sold}) => {
         {"$"+listing.price}
         </MDBCardText>
         <Link className="link" to={{pathname : "/listing/" + listing.id, state:{li : true} }}>
-        <MDBBtn >Read More</MDBBtn>
+       {sold ? "" : <MDBBtn >Read More</MDBBtn>} 
         </Link>
         {myListings ? (
           <>    
