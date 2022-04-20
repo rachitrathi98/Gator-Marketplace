@@ -10,6 +10,11 @@ const showListings = ()=>{
 const showSoldItems = ()=>{
   window.location.href = "http://localhost:3000/sold-items";
 }
+
+const showPurchasedItems = ()=>{
+  window.location.href = "http://localhost:3000/purchased-items";
+}
+
 const Navbar = ({user, listing, searchListing, filterLocation, filterTag}) => {
 
   const [name, setName] = useState([]);
@@ -151,7 +156,8 @@ const checkname = (value) => {
             Logout
           </li>
           <li className="listItem" id="listings" onClick={showListings}>My Listings</li>
-          <li className="listItem" id="requests" onClick={showSoldItems}>Items Sold By You</li>
+          <li className="listItem" id="requests" onClick={showSoldItems}>Items Sold</li>
+          <li className="listItem" id="requests" onClick={showPurchasedItems}>Items Purchased</li>
         <Add/>
           
         </ul>

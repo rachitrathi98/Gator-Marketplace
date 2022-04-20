@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Landing from "./components/Landing";
 import Post from "./pages/Post";
 import Listings from "./pages/Listings";
+import PurchasedItems from "./components/Purchased";
 import ProductListing from "./pages/ProductListing";
 import EditProductListing from "./pages/EditProductListing";
 import CheckoutListing from "./components/CheckoutListing";
@@ -25,6 +26,7 @@ const App = () => {
                   <Route path = "update-listing/:id" element = {<EditProductListing/>}/>
                   <Route path = "checkout/:id" element = {<CheckoutListing/>}/>
                   <Route path = "/sold-items" element = {<SoldItems/>}/>
+                  <Route path = "/purchased-items" element = {<PurchasedItems/>}/>
               </Routes>
           </div>
       </BrowserRouter>

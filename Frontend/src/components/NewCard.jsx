@@ -48,7 +48,7 @@ const NewCard = ({ listing, myListings, deleteHandler, sold}) => {
             </Link> 
             </>
             ): sold ? "" :
-            (<div> <Link to={`/checkout/${listing.id}`}>
+            (<div class ="float-right btn btn-sm mx-2"> <Link to={`/checkout/${listing.id}`}>
             <MDBBtn >Pay</MDBBtn>
               </Link> 
               </div>)
