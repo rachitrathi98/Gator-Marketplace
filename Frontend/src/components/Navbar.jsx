@@ -109,6 +109,7 @@ const checkname = (value) => {
         <>
         <div className="col-10 col-lg-3 mb-3 mb-lg-0">
           <input
+            id ="search" 
             className="pt-1 px-3 border-0 mb-3 mb-lg-0"
             type="text"
             placeholder={"Search"}
