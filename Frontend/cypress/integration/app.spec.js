@@ -91,4 +91,18 @@ it('Set Tags filter', () => {
   
  });
 
+ it('Items purchased page with listing when user purchases items', () => {
+    cy.visit('/home')
+    cy.get('#requests').should('exist');
+    cy.get('/purchased-items').should('exist');
+    cy.get('#cardButton').should('exist');
+});
+
+it('Items sold page with listing when current users item is sold', () => {
+    cy.visit('/home')
+    cy.get('#purchases').should('exist');
+    cy.get('/sold-items').should('exist');
+    cy.get('#cardButton').should('exist');
+});
+
 })
