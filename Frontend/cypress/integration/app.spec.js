@@ -91,4 +91,20 @@ it('Set Tags filter', () => {
   
  });
 
+ it('Search Box on home page for authenticated user', () => {
+    cy.visit('/home')
+    cy.get('#search').should('exist');
+
+});
+
+it('Filter by category and location on home page for authenticated user', () => {
+    cy.visit('/home')
+    cy.get('#filter').should('exist');
+    cy.get('#location').should('exist');
+    cy.get('#tags').should('exist');
+
+});
+
+
+
 })
